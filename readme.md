@@ -34,15 +34,12 @@ composer require johnylemon/laravel-apidocs
 php artisan apidocs:install
 ```
 
-4. Define at least one endpoint
-
-5. **Enjoy!**
+4. **Enjoy!**
 
 
 ## Generating route documentation
 
 This package ships with command for rapid route definition generation.
-Lets consider this case:
 
 ```
 php artisan apidocs:endpoint SampleEndpoint
@@ -331,30 +328,6 @@ As you can see, when parameter name is defined in both, array key and param name
 
 Route parameters and request body parameters can be defined same way.
 
-### <a name="custom-parameters"></a> Custom parameters
-
-It is common case that you may use `page` or some other param in different endpoint definitions. So it may be cumbersome to write something like that over and over again:
-
-```php
-
-$this->query([
-    Param::int('page')->example(1)->default(1)->optional()
-]);
-
-```    
-To solve that problem you may define `PageParam`, which you can reuse as many times as you want without repeated code:
-
-```php
-
-use App\Params\PageParam;
-
-(...)
-
-$this->query([
-    PageParam::class
-]);
-
-```    
 
 ### Available methods
 
@@ -460,6 +433,31 @@ use Johnylemon\Apidocs\Facades\Param;
     Param::array('roles'), // `roles` property, that should have `array` type
 
 ]
+
+```
+
+### <a name="custom-parameters"></a> Custom parameters
+
+It is common case that you may use `page` or some other param in different endpoint definitions. So it may be cumbersome to write something like that over and over again:
+
+```php
+
+$this->query([
+    Param::int('page')->example(1)->default(1)->optional()
+]);
+
+```    
+To solve that problem you may define `PageParam`, which you can reuse as many times as you want without repeated code:
+
+```php
+
+use App\Params\PageParam;
+
+(...)
+
+$this->query([
+    PageParam::class
+]);
 
 ```
 
