@@ -46,7 +46,7 @@ This package ships with command for rapid route definition generation.
 ```
 php artisan apidocs:endpoint SampleEndpoint
 ```
-Brand new `SampleEndpoint` class will be placed within `app\Endpoints` directory.
+Brand new `SampleEndpoint` class will be placed within `app\Apidocs\Endpoints` directory.
 Target directory may be changed within your `apidocs` config file.
 
 This class contains only one `describe` method, where you have to use any of available methods that will describe your endpoint. Like that:
@@ -54,7 +54,7 @@ This class contains only one `describe` method, where you have to use any of ava
 ```php
 <?php
 
-namespace App\Endpoints;
+namespace App\Apidocs\Endpoints;
 
 use Johnylemon\Apidocs\Endpoints\Endpoint;
 use Johnylemon\Apidocs\Facades\Param;
@@ -251,14 +251,13 @@ Route::post('api/users', [UsersController::class, 'store']);
 Route::patch('api/users/{id}', [UsersController::class, 'update']);
 
 ```
-If you want to use `App\Endpoints\SampleEndpoint` class as definition for first of them you should simply do this:
+If you want to use `App\Apidocs\Endpoints\SampleEndpoint` class as definition for first of them you should simply do this:
 
 ```php
 
+use App\Apidocs\Endpoints\SampleEndpoint;
 
-Route::get('api/users', [UsersController::class, 'index'])->apidocs(App\Endpoints\SampleEndpoint::class);
-
-(... rest of routes)
+Route::get('api/users', [UsersController::class, 'index'])->apidocs(SampleEndpoint::class);
 
 ```
 
@@ -271,10 +270,10 @@ Because `apidocs` method returns endpoint class, you can chain methods during ro
 
 ```php
 
+use App\Apidocs\Endpoints\SampleEndpoint;
 
-Route::get('api/users', [UsersController::class, 'index'])->apidocs(App\Endpoints\SampleEndpoint::class)->deprecated();
+Route::get('api/users', [UsersController::class, 'index'])->apidocs(SampleEndpoint::class)->deprecated();
 
-// (... rest of routes)
 
 ```
 
@@ -300,7 +299,7 @@ Your definition should now contain additional `query` method call with array of 
 ```php
 <?php
 
-namespace App\Endpoints;
+namespace App\Apidocs\Endpoints;
 
 use Johnylemon\Apidocs\Endpoints\Endpoint;
 use Johnylemon\Apidocs\Facades\Param;
@@ -461,7 +460,7 @@ To solve that problem you may define `PageParam`, which you can reuse as many ti
 
 ```php
 
-use App\Params\PageParam;
+use App\Apidocs\Params\PageParam;
 
 (...)
 
@@ -485,7 +484,7 @@ New param class may be defined within `__construct` method:
 
 <?php
 
-namespace App\Params;
+namespace App\Apidocs\Params;
 
 use Johnylemon\Apidocs\Params\Param;
 

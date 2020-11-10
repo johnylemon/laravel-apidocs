@@ -82,7 +82,7 @@ return [
     |
     */
     'dir' => [
-        'endpoints' => 'Endpoints',
-        'params' => 'Params',
+        'endpoints' => 'Apidocs/Endpoints',
+        'params' => 'Apidocs/Params',
     ],
 ];
