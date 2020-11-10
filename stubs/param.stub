@@ -1,0 +1,13 @@
+<?php
+
+namespace {{NAMESPACE}};
+
+use Johnylemon\Apidocs\Params\Param;
+
+class {{NAME}} extends Param
+{
+    public function __construct()
+    {
+        // code
+    }
+}

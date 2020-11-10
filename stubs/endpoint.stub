@@ -1,0 +1,17 @@
+<?php
+
+namespace {{NAMESPACE}};
+
+use Johnylemon\Apidocs\Endpoints\Endpoint;
+
+class {{NAME}} extends Endpoint
+{
+    /**
+     * Describe endpoint
+     *
+     */
+    public function describe(): void
+    {
+        //
+    }
+}

@@ -1,0 +1,295 @@
+$monokai: #272822
+$black: #676767
+$white: white
+$gray: #b9b9b9
+$green: #8BC34A
+$red: #e91e63
+$purple: #9c27b0
+$blue: #00BCD4
+$orange: #FF9800
+$yellow: #ffeb3b
+$teal: #009688
+$border-radius: 4px
+
+//
+// general styles
+//
+html
+    font-family: 'Lucida Grande', Verdana, sans-serif
+    padding-left: 300px
+    font-family: "Poppins", sans-serif
+    background: rgb(226, 232, 240)
+    color: $black
+    font-size: 14px
+
+*
+    box-sizing: border-box
+
+input, textarea
+    background: #EAEAEA
+    background: $white
+    border-radius: 4px
+    box-shadow: 0 2px rgba(0,0,0,0.2)
+    padding: 12px 24px
+    border: none
+    display: block
+    width: 100%
+    font-family: inherit
+    font-size: inherit
+
+.button
+    border: none
+    text-decoration: none
+    padding: 1rem 2rem
+    background: $red
+    color: $white
+    text-transform: uppercase
+    display: inline-block
+    cursor: pointer
+    transition: all 150ms
+
+    &:hover
+        outline: rgba(255,255,255,0.5) 4px solid
+        outline-offset: -4px
+
+//
+// codemirror overrides
+//
+.CodeMirror
+    height: auto !important
+    padding: 1rem 0
+
+//
+// scrollbar style
+//
+.ps__thumb-x
+    height: 4px !important
+
+.ps__thumb-y
+    width: 4px !important
+
+.ps__rail-x.ps--clicking,
+.ps__rail-x:focus > .ps__thumb-x,
+.ps__rail-x:hover > .ps__thumb-x
+    height: 6px !important
+
+.samples
+    display: grid
+    grid-template-columns: 60% 40%
+    grid-template-columns: 60% auto
+
+.playground
+    display: grid
+    padding-top: 4rem
+    grid-template-columns: 60% 40%
+
+    .try-it
+        padding-left: 1rem
+        .header
+            margin-bottom: 4px
+            text-align: right
+
+        .tryit-result
+            padding-top: 2rem
+
+            .block
+                background: $monokai
+                color: $white
+                overflow: auto
+                padding: 1rem 1rem 0rem
+
+                .status
+                    color: $red
+                    &.status-200, &.status-201
+                        color: $green
+
+.variables
+    .variable
+        display: grid
+        grid-template-columns: 50% 50%
+        margin-bottom: 1rem
+        border-bottom: $gray 1px dashed
+        padding: 1rem 0
+
+        .name
+            font-weight: 600
+
+            .badges
+                opacity: 0.6
+
+            .badge
+                opacity: 0.8
+                opacity: 1
+                display: inline-block
+                margin-right: 0.2rem
+                display: inline-block
+                background: $gray
+                padding: 0 0.4rem
+                border-radius: 4px
+                color: $white
+                font-size: 0.7rem
+                text-transform: uppercase
+                // font-weight: 400
+
+                &.string
+                    background: $blue
+
+                &.int, &.integer
+                    background: $green
+
+                &.bool, &.boolean
+                    background: $teal
+
+                &.array, &.enum
+                    background: $orange
+
+                &.file
+                    background: $purple
+
+                &.required
+                    background: $red
+
+        .description
+            font-size: 0.9rem
+
+.aside
+    position: fixed
+    top: 0
+    left: 0
+    width: 300px
+    height: 100%
+    overflow: auto
+    padding: 2rem 1rem
+    font-size: 0.9rem
+
+    .menu-group
+        padding: 1rem 0
+
+        .title
+            font-weight: bold
+            text-transform: uppercase
+            margin-bottom: 0.5rem
+
+        .menu-item
+            border-radius: 4px
+            padding: 0.2rem
+            border: transparent 2px solid
+            text-decoration: none
+            color: inherit
+            display: flex
+            align-items: end
+
+            .badge
+                flex-shrink: 0
+
+            &.active
+                background: rgba(0,0,0,0.06)
+
+            &.deprecated
+                text-decoration: line-through
+
+.method-badge
+    width: 50px
+    // margin-left: -60px
+    padding: 0.1rem 0.2rem
+    color: $white
+    background: $gray
+    border-radius: 2px
+    font-size: 0.7rem
+    font-weight: 600
+    display: inline-block
+    margin-right: 0.5rem
+    text-transform: uppercase
+    white-space: nowrap
+    text-overflow: ellipsis
+    overflow: hidden
+
+    &.get
+        background: $green
+
+    &.post
+        background: $blue
+
+    &.patch
+        background: $orange
+
+    &.put
+        background: $purple
+
+    &.delete
+        background: $red
+
+
+.hero
+    border-radius: 4px
+    margin-bottom: 2rem
+    background-color: $white
+    box-shadow: 0 2px rgba(0,0,0,0.2)
+    padding: 2rem
+
+.desc
+    max-width: 600px
+
+.resource
+    position: relative
+    width: 100%
+    border-radius: 4px
+    margin-bottom: 2rem
+    background-color: $white
+    box-shadow: 0 2px rgba(0,0,0,0.2)
+    opacity: 1
+    padding: 2rem
+
+
+    .title
+        font-size: 1.6rem
+        font-weight: 700
+        margin-bottom: 1rem
+
+    &.deprecated
+        opacity: 0.5
+
+        .title
+            text-decoration: line-through
+
+    .description
+        margin-bottom: 1rem
+
+
+    .url
+        position: sticky
+        top: 0
+        padding: 1rem 0
+        background: $white
+        font-weight: bold
+        font-size: 1.0rem
+        margin-bottom: 1rem
+        display: flex
+        align-items: center
+        z-index: 999
+
+    .method-badge
+        font-size: 1rem
+        padding: 0.5rem 1rem
+        width: auto
+        margin-right: 2rem
+
+.tabs
+    overflow: hidden
+
+    .header
+        background: $white
+        white-space: nowrap
+        overflow: hidden
+
+        .tab
+            display: inline-block
+            padding: 1rem 1rem
+            border-bottom: transparent 4px solid
+            cursor: pointer
+            text-transform: uppercase
+            font-weight: 500
+            font-size: 0.9rem
+
+            &.current
+                border-color: #e91e63

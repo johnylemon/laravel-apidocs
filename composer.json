@@ -1,0 +1,53 @@
+{
+    "name": "johnylemon/laravel-apidocs",
+    "type": "library",
+    "description": "Laravel API documentation generating tool",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Piotr Krzempek",
+            "email": "hello@johnylemon.dev",
+            "homepage": "https://johnylemon.dev"
+        }
+    ],
+    "keywords": [
+        "laravel",
+        "swagger",
+        "api",
+        "apidocs",
+        "openapi",
+        "documentation",
+        "docs",
+        "generate"
+    ],
+    "require": {
+        "laravel/framework": "^6.0 || ^7.0 || ^8.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.2",
+        "phpunit/phpunit": "^9.4"
+    },
+    "autoload": {
+        "files": [],
+        "psr-4": {
+            "Johnylemon\\Apidocs\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Johnylemon\\Apidocs\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Johnylemon\\Apidocs\\Providers\\ApidocsServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+}
