@@ -21,7 +21,8 @@
         "generate"
     ],
     "require": {
-        "laravel/framework": "^6.0 || ^7.0 || ^8.0"
+        "laravel/framework": "^6.0 || ^7.0 || ^8.0",
+        "johnylemon/miscellaneous": "^0.1.0"
     },
     "require-dev": {
         "orchestra/testbench": "^6.2",
