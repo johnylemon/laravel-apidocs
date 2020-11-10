@@ -14,9 +14,9 @@
         "laravel",
         "swagger",
         "api",
+        "documentation",
         "apidocs",
         "openapi",
-        "documentation",
         "docs",
         "generate"
     ],
@@ -49,5 +49,5 @@
         "test": "vendor/bin/phpunit"
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
+    "prefer-stable": true
 }

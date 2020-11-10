@@ -78,7 +78,6 @@ Every [method](#endpoint-available-methods) returns endpoint instance so you can
 
 - [uri](#endpoint-uri)
 - [method](#endpoint-method)
-- [domain](#endpoint-domain)
 - [group](#endpoint-group)
 - [deprecated](#endpoint-deprecated)
 - [title](#endpoint-title)
@@ -104,13 +103,6 @@ $this->uri('/users');
 Set endpoint method. Called under the hood during endpoint mounting
 ```php
 $this->method('POST');
-```
-
-
-#### <a name="endpoint-domain"></a> domain
-Set endpoint domain. Called under the hood during endpoint mounting
-```php
-$this->domain('johnylemon');
 ```
 
 #### <a name="endpoint-group"></a> group
@@ -409,15 +401,17 @@ Mark parameter as optional
 Param::optional();
 ```
 
-#### <a name="param-enum"></a> enum
+#### <a name="param-possible"></a> possible
 Set parameter possible values
+```php
+Param::possible([10, 100, 1000]);
+```
 
+#### <a name="param-enum"></a> enum
+Alias for `possible`. See [possible](#param-possible)
 ```php
 Param::enum([10, 100, 1000]);
 ```
-
-#### <a name="param-possible"></a> possible
-Alias for `enum`. See [enum](#param-enum)
 
 
 #### <a name="param-default"></a> default
@@ -528,12 +522,19 @@ Apidocs::defineGroup('tickets', 'Tickets'); // Last parameter is optional
 
 This package ships with some commands that will be used for common tasks:
 
-| command                 | description           |
-|-------------------------|-----------------------|
-| 1apidocs:install`       | install package       |
-| `apidocs:endpoint {name`| create endpoint class |
-| `apidocs:param {name}`  | create param class    |
+| command                   | description           |
+|---------------------------|-----------------------|
+| `apidocs:install`         | install package       |
+| `apidocs:endpoint {name}` | create endpoint class |
+| `apidocs:param {name}`    | create param class    |
 
+
+## Testing
+You can run the tests with:
+
+```
+vendor/bin/phpunit
+```
 
 ## License
 The MIT License (MIT)

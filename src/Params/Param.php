@@ -8,10 +8,12 @@ class Param
 {
     use KeepsData;
 
-    public function __call(string $name, array $args = []): Param
+    public function __call(string $name, array $args = []): ?Param
     {
-        if(in_array($name, ['string', 'array', 'boolean', 'bool', 'integer', 'int']))
+        if(in_array($name, ['string', 'array', 'bool', 'int']))
             return $this->type($name)->name($args[0]);
+
+        return NULL;
     }
 
     /**
@@ -85,18 +87,18 @@ class Param
 
     /**
     * Sets parameter possible values
+    * Alias for `possible`
     *
     * @param     array    $enum possible values
     * @return    Johnylemon\Apidocs\Params\Param mutated parameter
     */
     public function enum(array $enum): Param
     {
-        return $this->set('enum', $enum);
+        return $this->possible($enum);
     }
 
     /**
     * Sets parameter possible values.
-    * Alias for `enum`
     *
     * @see `enum`
     * @param     array    $possibilities possible values
@@ -104,7 +106,7 @@ class Param
     */
     public function possible(array $possiblities): Param
     {
-        return $this->enum($possiblities);
+        return $this->set('possible', $possiblities);
     }
 
     /**

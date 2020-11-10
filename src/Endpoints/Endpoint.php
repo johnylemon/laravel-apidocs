@@ -288,7 +288,9 @@ class Endpoint
     public function __call($name, $args)
     {
         if((string)$code = Str::of($name)->match('/^returns([0-9]{3})$/'))
-            return $this->returns($code, $args[0]);
+        {
+            return $this->returns($code, ...$args);
+        }
 
         throw new Error('Call to undefined method '.__CLASS__.'::'.$name.'()');
     }

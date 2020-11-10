@@ -16,7 +16,7 @@ class TestCase extends BaseTestCase
 
         $this->getEnvironmentSetUp($this->app);
 
-        config()->set('laravel-apidocs', require __DIR__.'/../config/laravel-apidocs.php');
+        config()->set('apidocs', require __DIR__.'/../config/apidocs.php');
     }
 
     protected function getEnvironmentSetUp($app)

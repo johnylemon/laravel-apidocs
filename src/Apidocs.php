@@ -26,7 +26,7 @@ class Apidocs
      * @param     mixed    $data    endpoint
      * @return    Johnylemon\Apidocs\Endpoints\Endpoint endpoint
      */
-    public function register($data)
+    public function register($data): Endpoint
     {
         $endpoint = static::buildEndpoint($data);
 
