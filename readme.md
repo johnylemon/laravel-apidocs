@@ -22,7 +22,7 @@ This package adds `apidocs` method to [Laravel](https://github.com/laravel/larav
 
 ## Getting started
 
- 1. Add repository
+ 1. Add `johnylemon/laravel-apidocs` repository
 
 ```
 composer require johnylemon/laravel-apidocs
@@ -71,12 +71,14 @@ class SampleEndpoint extends Endpoint
 ```
 
 As you can see we set title and description as endpoint definition.
-Every method returns endpoint instance so you can chain them.
+Every [method](#endpoint-available-methods) returns endpoint instance so you can chain them.
 
-Full list of methods is presented below.
 
+### <a name="endpoint-available-methods"></a> Endpoint available methods
 
 - [uri](#endpoint-uri)
+- [method](#endpoint-method)
+- [domain](#endpoint-domain)
 - [group](#endpoint-group)
 - [deprecated](#endpoint-deprecated)
 - [title](#endpoint-title)
@@ -94,24 +96,49 @@ Full list of methods is presented below.
 
 #### <a name="endpoint-uri"></a> uri
 Set uri. Called under the hood during endpoint mounting
+```php
+$this->uri('/users');
+```
+
+#### <a name="endpoint-method"></a> method
+Set endpoint method. Called under the hood during endpoint mounting
+```php
+$this->method('POST');
+```
+
+
+#### <a name="endpoint-domain"></a> domain
+Set endpoint domain. Called under the hood during endpoint mounting
+```php
+$this->domain('johnylemon');
+```
 
 #### <a name="endpoint-group"></a> group
 Add endpoint to specific [group](#groups). Group have to be defined previously.
 ```php
-$this->group('some-grou-slug');
+$this->group('some-group-slug');
 ```
 
 #### <a name="endpoint-deprecated"></a> deprecated
 Will mark endpoint as deprecated.
+```php
+$this->deprecated();
+```
 
 #### <a name="endpoint-title"></a> title
 Set endpoint title
+```php
+$this->title('Create user resource');
+```
 
 #### <a name="endpoint-description"></a> description
 Set endpoint description
+```php
+$this->description('This endpoint contains logic for creating user resources based on provided data');
+```
 
 #### <a name="endpoint-desc"></a> desc
-Alias for (description)[#desc]
+Alias for [description](#desc)
 
 #### <a name="endpoint-query"></a> query
 Defines endpoint query params. See: [parameters](#parameters)
@@ -259,7 +286,7 @@ Route::get('api/users', [UsersController::class, 'index'])->apidocs(App\Endpoint
 
 ```
 
-And because `deprecated` method returns endpoint as well, you are allowed to use other endpoint methods.
+And because `deprecated` method returns endpoint as well, you are allowed to use [other endpoint methods](#endpoint-available-methods).
 
 > :warning: After calling `apidocs` method you cannot use route-specific methods, like, say, `name` method.
 Be sure to call `apidocs` method after all framework route-specific methods are called.
@@ -299,31 +326,28 @@ class SampleEndpoint extends Endpoint
 }
 
 ```
-Note that we did not specify parameter name (`page`) by array key. It is not neccesary when you define parameter name within class. But of course you can define them in different way:
+Note that we did not specify parameter name (`page`) by array key. It is not necessary when you define parameter name within class. But of course you can define them in different way:
 
 
 ```php
 
 use Johnylemon\Apidocs\Facades\Param;
 
-(...)
+$this->query([
 
-    $this->query([
+    // parameter name will be `page`
+    Param::int('page')->example(1)->default(1)->optional()
 
-        // parameter name will be `page`
-        Param::int('page')->example(1)->default(1)->optional()
+    // same effect:
+    'page' => Param::int('page')->example(1)->default(1)->optional()
 
-        // same effect:
-        'page' => Param::int('page')->example(1)->default(1)->optional()
+    // same effect:
+    'page' => Param::type('int')->example(1)->default(1)->optional()
 
-        // same effect:
-        'page' => Param::type('int')->example(1)->default(1)->optional()
+    // this parameter will be named `page_number`
+    'page_number' => Param::int('page')->example(1)->default(1)->optional()
+])
 
-        // this parameter will be named `page_number`
-        'page_number' => Param::int('page')->example(1)->default(1)->optional()
-    ])
-
-(...)
 ```
 
 As you can see, when parameter name is defined in both, array key and param name, array key will take precedence allowing you to create reusable [custom parameters](#custom-parameters).
@@ -368,7 +392,7 @@ Param::description('Unique username');
 ```
 
 #### <a name="param-desc"></a> desc
-Alias of `description`. See (description)[#param-description]
+Alias of `description`. See [description](#param-description)
 
 
 #### <a name="param-required"></a> required
@@ -393,7 +417,7 @@ Param::enum([10, 100, 1000]);
 ```
 
 #### <a name="param-possible"></a> possible
-Alias for `enum`. See (enum)[#param-enum]
+Alias for `enum`. See [enum](#param-enum)
 
 
 #### <a name="param-default"></a> default
@@ -412,29 +436,19 @@ Param::example(42);
 
 
 #### <a name="param-eg"></a> eg
-Alias for `example`. See (example)[#param-example]
+Alias for `example`. See [example](#param-example)
 
-
-
-Param class makes use of magic `__call` method and allow you to define parameter type and name at once by using one of these `methods`:
-
-- `string`
-- `array`
-- `boolean`
-- `bool`
-- `integer`
-- `int`
+Param class makes use of magic `__call` method and allow you to define parameter type and name at once by using one of these methods: `string`, `array`, `boolean`, `bool`, `integer` or `int`
 
 ```php
 
 use Johnylemon\Apidocs\Facades\Param;
 
-[
+$this->query([
     Param::string('slug'), // `slug` property, that should have `string` type
     Param::int('id'), // id `property`, that should have `int` type
     Param::array('roles'), // `roles` property, that should have `array` type
-
-]
+])
 
 ```
 
@@ -485,7 +499,7 @@ class PageParam extends Param
 {
     public function __construct()
     {
-        $this->name('page')->type('int')->default(1)->eg(1)->optional();
+        $this->name('page')->type('int')->default(1)->eg(42)->optional();
     }
 }
 
@@ -507,7 +521,7 @@ Apidocs::defineGroup('tickets', 'Tickets'); // Last parameter is optional
 
 ```
 
-> Groups must be defined **before** route registering. Perfect place for that is the the very beginning of your routes file.
+> **Groups must be defined before route registering.** Perfect place for that is the the very beginning of your routes file.
 
 
 ## Commands
@@ -516,9 +530,9 @@ This package ships with some commands that will be used for common tasks:
 
 | command                 | description           |
 |-------------------------|-----------------------|
-| apidocs:install         | install package       |
-| apidocs:endpoint {name} | create endpoint class |
-| apidocs:param {name}    | create param class    |
+| 1apidocs:install`       | install package       |
+| `apidocs:endpoint {name`| create endpoint class |
+| `apidocs:param {name}`  | create param class    |
 
 
 ## License
