@@ -1,5 +1,8 @@
 # Laravel API documentation generating tool
 
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/johnylemon/laravel-apidocs/run-tests)
+![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/johnylemon/laravel-apidocs)
+
 ### The problem
 I don't like writing tons of lines of stupid annotations just to have hope that api documentation will be generated correctly without errors that says nothing. And I am not the only one.
 
