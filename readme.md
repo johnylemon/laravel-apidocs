@@ -18,6 +18,8 @@ This package adds `apidocs` method to [Laravel](https://github.com/laravel/larav
  - make your controllers readable again
 
 
+![img](screenshot.png)
+
 ## Getting started
 
  1. Add repository
