@@ -4,7 +4,7 @@
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/johnylemon/laravel-apidocs)
 
 ### The problem
-I don't like writing tons of lines of stupid annotations just to have hope that api documentation will be generated correctly without errors that says nothing. And I am not the only one.
+I don't like writing tons of lines of stupid annotations just to have hope that api documentation will be generated correctly without errors that says nothing. And I am not the only one. [More](WHY.md).
 
 This package solves this problem the way I like - by writing PHP code.
 
@@ -268,6 +268,7 @@ and... yes, thats it!
 
 The only thing you have to do now is to call `php artisan apidocs:generate` command and visit `/apidocs` route to see it in action!
 
+> :warning: **This package must clear route cache to generate apidocs properly.** If you are using route caching in your production environment rememeber to call `artisan route:cache` after `artisan apidocs:generate` command
 
 Because `apidocs` method returns endpoint class, you can chain methods during route definition. For example, you may want to mark your route as deprecated:
 
@@ -282,7 +283,7 @@ Route::get('api/users', [UsersController::class, 'index'])->apidocs(SampleEndpoi
 
 And because `deprecated` method returns endpoint as well, you are allowed to use [other endpoint methods](#endpoint-available-methods).
 
-> :warning: After calling `apidocs` method you cannot use route-specific methods, like, say, `name` method.
+> :warning: **After calling `apidocs` method you cannot use route-specific methods**, like, say, `name` method.
 Be sure to call `apidocs` method after all framework route-specific methods are called.
 
 
@@ -540,6 +541,7 @@ vendor/bin/phpunit
 
 ## License
 The MIT License (MIT)
+Please see [LICENSE](LICENSE.md) for details.
 
 
 ## Contact
