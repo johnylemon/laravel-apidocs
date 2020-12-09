@@ -5,6 +5,7 @@ namespace Johnylemon\Apidocs;
 use Johnylemon\Apidocs\Facades\Exporter;
 use Johnylemon\Apidocs\Endpoints\Endpoint;
 use Johnylemon\Apidocs\Exceptions\InvalidEndpoint;
+use Route;
 
 class Apidocs
 {
@@ -13,6 +14,12 @@ class Apidocs
      * @var    array
      */
     protected $routes = [];
+
+    /**
+     * defered endpoint definitions
+     * @var    array
+     */
+    protected $defered = [];
 
     /**
      * registered groups
@@ -33,6 +40,22 @@ class Apidocs
         $this->routes[] = $endpoint;
 
         return $endpoint;
+    }
+
+    /**
+     * Register endpoint
+     *
+     * @param     mixed    $data    endpoint
+     * @param     mixed    $route   route
+     * @return    Johnylemon\Apidocs\Endpoints\Endpoint endpoint
+     */
+    public function registerRoute($data, $route): Endpoint
+    {
+        return $this->register($data)
+            ->method($route->methods()[0])
+            ->uri($route->uri())
+            ->group('non-groupped')
+            ->mount();
     }
 
     /**
@@ -57,12 +80,43 @@ class Apidocs
     }
 
     /**
+     * Create endpoint definitions for all of the routes
+     *
+     */
+    protected function compile()
+    {
+        if($this->defered)
+        {
+            $this->describeDefered();
+        }
+    }
+
+    /**
+     * Create endpoint definitions for defered routes
+     *
+     */
+    protected function describeDefered()
+    {
+        $routes = Route::getRoutes();
+
+        foreach($this->defered as $name => $definition)
+        {
+            if($route = $routes->getByName($name))
+                $this->registerRoute($definition, $route);
+        }
+
+        $this->defered = [];
+    }
+
+    /**
      * Exports apidocs data
      *
      * @return    array    array of data
      */
     public function export(): array
     {
+        $this->compile();
+
         return Exporter::export($this);
     }
 
@@ -121,5 +175,15 @@ class Apidocs
     public function getGroup(string $slug): array
     {
         return $this->groups[$slug];
+    }
+
+    /**
+     * Defer endpoint definition
+     *
+     * @param     array     $definitions
+     */
+    public function defer(array $definitions)
+    {
+        $this->defered = array_merge($this->defered, $definitions);
     }
 }

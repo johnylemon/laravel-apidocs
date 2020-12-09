@@ -60,16 +60,19 @@ class ApidocsServiceProvider extends ServiceProvider
         //
         Apidocs::defineGroup('non-groupped', 'Non-groupped', 'Non-grouped endpoints');
 
+
         //
         // route macro
         //
         Route::macro('apidocs', function($data = NULL){
+            return Apidocs::registerRoute($data, $this);
+        });
 
-            return Apidocs::register($data)
-                ->method($this->methods()[0])
-                ->uri($this->uri())
-                ->group('non-groupped')
-                ->mount();
+        //
+        // resource routes macro
+        //
+        PendingResourceRegistration::macro('apidocs', function(array $data){
+            apidocs($data);
         });
 
         //

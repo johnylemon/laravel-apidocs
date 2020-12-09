@@ -38,10 +38,12 @@ class GenerateApidocs extends Command
      */
     public function handle()
     {
-        $this->call('route:clear');
-        
+        $this->callSilently('route:clear');
+
         $data = Apidocs::export();
 
         file_put_contents(config('apidocs.file_path'), json_encode($data));
+
+        $this->info('API docs generated');
     }
 }
