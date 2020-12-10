@@ -36,6 +36,9 @@
         }
     },
     "autoload-dev": {
+        "files": [
+            "src/helpers.php"
+        ],
         "psr-4": {
             "Johnylemon\\Apidocs\\Tests\\": "tests"
         }
