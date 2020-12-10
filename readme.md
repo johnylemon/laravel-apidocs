@@ -250,8 +250,6 @@ Lets assume you have following routes:
 ```php
 
 Route::get('api/users', [UsersController::class, 'index']);
-Route::post('api/users', [UsersController::class, 'store']);
-Route::patch('api/users/{id}', [UsersController::class, 'update']);
 
 ```
 If you want to use `App\Apidocs\Endpoints\SampleEndpoint` class as definition for first of them you should simply do this:
@@ -286,6 +284,46 @@ And because `deprecated` method returns endpoint as well, you are allowed to use
 > :warning: **After calling `apidocs` method you cannot use route-specific methods**, like, say, `name` method.
 Be sure to call `apidocs` method after all framework route-specific methods are called.
 
+### Resource routes
+
+Sometimes you would like to use `resource` or `apiResource` methods to create bunch of typical CRUD endpoints. To specify definitions for these endpoints you have to use their names:
+
+```php
+
+Route::resource('posts', PostsController::class)->apidocs([
+    'posts.index' => PostsIndexEndpoint::class,
+    'posts.store' => PostStoreEndpoint::class,
+]);
+
+```
+As you can see, you may ommit endpoints you dont want to be documented.
+
+Sometimes you may be using `resources` or `apiResources` methods to create bunch of CRUDs at once. Because Laravel does not provide any handy hook for that, routes defined that way (and any other named routes!) may be documented using `apidocs` helper:
+
+```php
+
+//
+// your resoures
+//
+Route::resources([
+    'users' => UsersController::class,
+    'posts' => PostsController::class,
+]);
+
+//
+// defining endpoints
+//
+apidocs([
+    'posts.index'   => PostsIndexEndpoint::class,
+    'posts.store'   => PostStoreEndpoint::class,
+    'users.index'   => UsersIndexEndpoint::class,
+    'users.store'   => UserStoreEndpoint::class,
+    'users.destroy' => UserStoreEndpoint::class,
+]);
+
+```
+
+As metioned earlier, you may ommit endpoints you don't want to be documented.
 
 ## <a name="parameters"></a>Parameters
 
