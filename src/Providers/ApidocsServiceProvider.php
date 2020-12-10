@@ -12,6 +12,7 @@ use Johnylemon\Apidocs\Console\Commands\{
     MakeEndpoint,
     MakeParam
 };
+use Illuminate\Routing\PendingResourceRegistration;
 
 class ApidocsServiceProvider extends ServiceProvider
 {

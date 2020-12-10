@@ -85,7 +85,7 @@ class Apidocs
      */
     protected function compile()
     {
-        if($this->defered)
+        if($this->getDefered())
         {
             $this->describeDefered();
         }
@@ -185,5 +185,15 @@ class Apidocs
     public function defer(array $definitions)
     {
         $this->defered = array_merge($this->defered, $definitions);
+    }
+
+    /**
+     * Return defered definitions
+     *
+     * @return    array    defered definitions
+     */
+    public function getDefered(): array
+    {
+        return $this->defered;
     }
 }

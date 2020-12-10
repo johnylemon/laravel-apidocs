@@ -279,6 +279,54 @@ class ApidocsTest extends TestCase
         ]);
     }
 
+    /** @test */
+    public function can_defer()
+    {
+        Apidocs::defer([
+            'endpoint.one' => TestEndpoint::class,
+        ]);
+        $this->assertCount(1, Apidocs::getDefered());
+
+        Apidocs::defer([
+            'endpoint.one' => TestEndpoint::class,
+        ]);
+        $this->assertCount(1, Apidocs::getDefered());
+
+        Apidocs::defer([
+            'endpoint.two' => TestEndpoint::class,
+        ]);
+        $this->assertCount(2, Apidocs::getDefered());
+
+        $this->assertSame(json_encode([
+            'endpoint.one' => TestEndpoint::class,
+            'endpoint.two' => TestEndpoint::class,
+        ]), json_encode(Apidocs::getDefered()));
+    }
+
+    /** @test */
+    public function apidocs_function()
+    {
+        apidocs([
+            'endpoint.one' => TestEndpoint::class,
+        ]);
+        $this->assertCount(1, Apidocs::getDefered());
+
+        apidocs([
+            'endpoint.one' => TestEndpoint::class,
+        ]);
+        $this->assertCount(1, Apidocs::getDefered());
+
+        apidocs([
+            'endpoint.two' => TestEndpoint::class,
+        ]);
+        $this->assertCount(2, Apidocs::getDefered());
+
+        $this->assertSame(json_encode([
+            'endpoint.one' => TestEndpoint::class,
+            'endpoint.two' => TestEndpoint::class,
+        ]), json_encode(Apidocs::getDefered()));
+    }
+
     protected function assertMethod($endpoint, $field, $val)
     {
         $this->assertEquals([
