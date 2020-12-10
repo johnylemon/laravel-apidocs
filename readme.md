@@ -1,6 +1,6 @@
 # Laravel API documentation generating tool
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/johnylemon/laravel-apidocs/run-tests)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/johnylemon/laravel-apidocs/tests?label=tests)
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/johnylemon/laravel-apidocs)
 
 ### The problem
